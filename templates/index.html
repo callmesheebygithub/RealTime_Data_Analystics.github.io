@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Sales Analysis</title>
+    <!-- <link rel="stylesheet" href="index.css"> -->
+</head>
+<style>
+    /* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input, select {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #218838;
+}
+</style>
+<body>
+    <div class="container">
+        <h1>Sales Data Input Form</h1>
+        <form id="salesForm" method="post">
+            {% csrf_token %}
+            <label for="productId">Product ID (Unique Identifier):</label>
+            <input type="text" id="productId" name="productId" required>
+
+            <label for="productName">Product Name:</label>
+            <input type="text" id="productName" name="productName" required>
+
+            <label for="category">Category:</label>
+            <select id="category" name="category" required>
+                <option value="">Select a category</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Home & Garden">Home & Garden</option>
+                <option value="Toys">Toys</option>
+            </select>
+
+            <label for="salesAmount">Sales Amount ($):</label>
+            <input type="number" id="salesAmount" name="salesAmount" step="0.01" required>
+
+            <label for="unitsSold">Units Sold:</label>
+            <input type="number" id="unitsSold" name="unitsSold" required>
+
+            <label for="region">Region:</label>
+            <select id="region" name="region" required>
+                <option value="">Select a region</option>
+                <option value="North">North</option>
+                <option value="South">South</option>
+                <option value="East">East</option>
+                <option value="West">West</option>
+            </select>
+
+            <label for="customerAge">Customer Age:</label>
+            <input type="number" id="customerAge" name="customerAge" required>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

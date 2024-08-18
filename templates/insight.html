@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Insights</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .chart-container {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 40px;
+        }
+        .chart {
+            width: 45%;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Product Insights</h1>
+        <div class="chart-container">
+            <div class="chart">
+                <h2>Sales Summary</h2>
+                <p><strong>Mean Sales:</strong> {{ mean_sales }}</p>
+                <p><strong>Median Sales:</strong> {{ median_sales }}</p>
+                <p><strong>Mode Sales:</strong> {{ mode_sales }}</p>
+            </div>
+            <div class="chart">
+                <h2>Category Distribution</h2>
+                <canvas id="categoryChart"></canvas>
+            </div>
+        </div>
+        <h2>Sales Data</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Product ID</th>
+                    <th>Product Name</th>
+                    <th>Product Category</th>
+                    <th>Sales Amount</th>
+                    <th>Units Sold</th>
+                    <th>Region</th>
+                    <th>Age</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                <tr>
+                    <td>{{ product.ProductID }}</td>
+                    <td>{{ product.ProductName }}</td>
+                    <td>{{ product.ProductCategory }}</td>
+                    <td>{{ product.SalesAmount }}</td>
+                    <td>{{ product.UnitSold }}</td>
+                    <td>{{ product.Region }}</td>
+                    <td>{{ product.Age }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const categoryData = {{ category_data|safe }};
+        const categoryLabels = categoryData.map(data => data.ProductCategory);
+        const categoryValues = categoryData.map(data => data.total);
+
+        new Chart(document.getElementById('categoryChart'), {
+            type: 'pie',
+            data: {
+                labels: categoryLabels,
+                datasets: [{
+                    label: 'Product Categories',
+                    data: categoryValues,
+                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#E7E9ED']
+                }]
+            },
+            options: {
+                responsive: true
+            }
+        });
+    </script>
+</body>
+</html>
